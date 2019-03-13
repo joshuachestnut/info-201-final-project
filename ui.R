@@ -12,7 +12,11 @@ countries <- as.character(data[[1]])
 fertility_data_complete <- merge(fertility_data_one, fertility_data_two) %>%
   select(Entity, Year, fertility_rate, gdp_per_capita)
 
-year_range <- range(fertility_data_complete$Year)
+life_infant_comparison <- merge(fertility_data_one, fertility_data_two) %>%
+  select(Entity, Year, fertility_rate, infant_mortality_rate_per_1000)
+
+year_range_fertility <- range(fertility_data_complete$Year)
+year_range_infant <- range(life_infant_comparison$Year)
 
 my_ui <- fluidPage(
   navbarPage("Fertility Rates",
@@ -24,7 +28,7 @@ my_ui <- fluidPage(
         
         # Add a sidebarPanel within the sidebarLayout
         sidebarPanel(
-          sliderInput("Year", "Select Years of Interest:", min = year_range[1], max = year_range[2], value = year_range),
+          sliderInput("Year", "Select Years of Interest:", min = year_range_fertility[1], max = year_range_fertility[2], value = year_range_fertility),
           # This is a selectInput to select the country of interest.
           selectInput("Country", "Select Country of Interest", choices = fertility_data_complete$Entity, selected = "", selectize = TRUE)
         ),
@@ -70,6 +74,7 @@ my_ui <- fluidPage(
         )
       )
     ),
+    # Kimmy UI
     tabPanel(
       titlePanel("2015 Rates for Cambodia and the United States"), # create title panel
       h5("What were the female labor force participation (of women 15 years and older), advanced education and fertility rates of women in Cambodia in 2015?
@@ -107,6 +112,31 @@ my_ui <- fluidPage(
         )# end of main Panel
         
       ) # end of sidebar layout
+    ),
+    tabPanel(
+      # Feven
+      titlePanel("Correlation Between Fertility Rate and Infant Mortality"),
+      
+      # Add a sidebarLayout
+      sidebarLayout(
+        
+        # Add a sidebarPanel within the sidebarLayout
+        sidebarPanel(
+          sliderInput("Year", "Select Years of Interest:", min = year_range_infant[1], max = year_range_infant[2], value = year_range_infant),
+          # This is a selectInput to select the country of interest.
+          selectInput("Country", "Select Country of Interest", choices = life_infant_comparison$Entity, selected = "", selectize = TRUE)
+        ),
+        # Add the mainPanel to the fluid page.
+        mainPanel(
+          # In order to create tabs on the fluid page, add the tabsetPanel
+          tabsetPanel(
+            # This is the tabPanel for the data table.
+            tabPanel("Data Table", tableOutput("dataTable2"), textOutput("tableText2")),
+            # This is the tabPanel for the Correlation Plot.
+            tabPanel("Correlation Plot", plotOutput("correlationPlot2"), textOutput("plotText2"))
+          )
+        )
+      )
     )
   )
 )

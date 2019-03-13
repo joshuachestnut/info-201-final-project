@@ -100,4 +100,28 @@ my_server <- shinyServer(function(input, output) {
       countries have different rates. By narrowing in on two countries, we can compare and 
       observe their annual rates and see if the aforementioned relationship among education, 
       workforce participation and fertility is valid."})
+    
+    # Feven's Server
+    # This outputs the data table according the the necessary selections and filters.
+    output$dataTable2 <- renderTable({
+      life_infant_comparison %>% filter(Year > input$Year[1] & Year < input$Year[2]) %>% filter(Entity == input$Country)
+    })
+    # This is the correlation plot that corresponds the the given selections and filters of the data table.
+    output$correlationPlot2 <- renderPlot({
+      filtered_years <- life_infant_comparison %>%
+        filter(Year > input$Year[1] & Year < input$Year[2]) %>%
+        filter(Entity == input$Country)
+      
+      new_df <- filtered_years %>% 
+        gather(key = "Attributes", value = "value", fertility_rate, infant_mortality_rate_per_1000)
+      comparison_plot <- ggplot(data = new_df) +
+        geom_smooth(mapping = aes_string(y = "value", x = "Year", color = "Attributes")) + 
+        labs(
+          title = paste("Graph"),
+          x = "Year",
+          y = "Value"
+        )
+      
+      comparison_plot
+    })
 })
