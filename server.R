@@ -4,13 +4,13 @@ source("cambodia_us.R")
 my_server <- shinyServer(function(input, output) {
     # This outputs the data table according the the necessary selections and filters.
     output$dataTable <- renderTable({
-      fertility_data_complete %>% filter(Year > input$Year[1] & Year < input$Year[2]) %>% filter(Entity == input$Country)
+      fertility_data_complete %>% filter(Year > input$Year1[1] & Year < input$Year1[2]) %>% filter(Entity == input$Country1)
     })
     # This is the correlation plot that corresponds the the given selections and filters of the data table.
     output$correlationPlot <- renderPlot({
       filtered_years <- fertility_data_complete %>%
-        filter(Year > input$Year[1] & Year < input$Year[2]) %>%
-        filter(Entity == input$Country)
+        filter(Year > input$Year1[1] & Year < input$Year1[2]) %>%
+        filter(Entity == input$Country1)
       fertility_gdp_plot <- ggplot(data = filtered_years) +
         geom_point(mapping = aes_string(y = "fertility_rate", x = "gdp_per_capita")) +
         geom_smooth(mapping = aes_string(y = "fertility_rate", x = "gdp_per_capita")) +
@@ -42,7 +42,8 @@ my_server <- shinyServer(function(input, output) {
         geom_point(aes(y = life_expectancy), colour = "red") + 
         geom_point(aes(y = fertility_rate), colour = "grey") + 
         labs(
-          title = paste("Avg Overall Life Expectancy vs Fertility Rate for", input$country1)
+          title = paste("Avg Overall Life Expectancy vs Fertility Rate for", input$country1),
+          y = "Life Expectancy"
         )
     })
     
@@ -50,10 +51,11 @@ my_server <- shinyServer(function(input, output) {
       country_frame <- avg_life %>%
         filter(Entity == input$country2)
       ggplot(country_frame, aes(Year)) +                    
-        geom_point(aes(y = life_expectancy), colour = "blue") + 
+        geom_point(aes(y = life_expectancy), colour = "red") + 
         geom_point(aes(y = fertility_rate), colour = "grey") +
         labs(
-          title = paste("Avg Overall Life Expectancy vs Fertility Rate for", input$country2)
+          title = paste("Avg Overall Life Expectancy vs Fertility Rate for", input$country2),
+          y = "Life Expectancy"
         )
   })
     
@@ -67,7 +69,7 @@ my_server <- shinyServer(function(input, output) {
       bargraph1 <- ggplot(data = filtered_two_df) + # plot filtered_years data
         geom_col(mapping = aes(x= rate_type, y= Rate , fill = Country), position = position_dodge((width = 0.9))) +  # specify aesthetics
         scale_fill_brewer(palette = "Set1") + # specify color palette
-        labs(title = "2015 Cambodia and U.S. Data", x= NULL, y = "Rate (%)") # create labels
+        labs(title = "2015 Cambodia and U.S. Data", x = "Country", y = "Rate (%)") # create labels
       
       bargraph1 # return plot
       

@@ -22,7 +22,7 @@ my_ui <- fluidPage(
   navbarPage("Fertility Rates",
     tabPanel(
       h5("Introduction"),
-  
+      p("By: Joshua Chesnut, Feven Gurmu, Kimmy Lum, Alli Hishikawa"),
       p("To simply say that the average fertility rate has declined over time would be a gross understatement, 
         as the average rate has fallen by more than fifty percent in the last sixty years (Roser). 
         The decline of fertility rates across the world remains of particular interest to scientists, 
@@ -105,9 +105,9 @@ my_ui <- fluidPage(
         
         # Add a sidebarPanel within the sidebarLayout
         sidebarPanel(
-          sliderInput("Year", "Select Years of Interest:", min = year_range_fertility[1], max = year_range_fertility[2], value = year_range_fertility),
+          sliderInput("Year1", "Select Years of Interest:", min = year_range_fertility[1], max = year_range_fertility[2], value = year_range_fertility),
           # This is a selectInput to select the country of interest.
-          selectInput("Country", "Select Country of Interest", choices = fertility_data_complete$Entity, selected = "", selectize = TRUE)
+          selectInput("Country1", "Select Country of Interest", choices = fertility_data_complete$Entity, selected = "", selectize = TRUE)
         ),
         # Add the mainPanel to the fluid page.
         mainPanel(
