@@ -1,6 +1,7 @@
 # info-201-final-project
 
 Group AA4 Info 201 Final Project
+By: Kimmy Lum, Alli Hishikawa, Joshua Chesnut, Feven Gurmu
 
 Presentation Name: Worldwide Fertility Rate Comparisons and Relationships
 
