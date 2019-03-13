@@ -10,8 +10,6 @@ my_ui <- fluidPage(
   # Application title
   titlePanel("Life Expectancy"),
   
-  
-  
   # Sidebar with a selection input for number of bins 
   sidebarPanel(
     p("Select two different countries to see how their life expectancies compare."),
@@ -37,7 +35,7 @@ my_ui <- fluidPage(
              plotOutput("plot2"))
     )
   )
-    )
+)
 
 my_server <- function(input, output) {
   avg_life <- data %>%
