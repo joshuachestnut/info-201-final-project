@@ -69,7 +69,7 @@ my_server <- shinyServer(function(input, output) {
       bargraph1 <- ggplot(data = filtered_two_df) + # plot filtered_years data
         geom_col(mapping = aes(x= rate_type, y= Rate , fill = Country), position = position_dodge((width = 0.9))) +  # specify aesthetics
         scale_fill_brewer(palette = "Set1") + # specify color palette
-        labs(title = "2015 Cambodia and U.S. Data", x = "Country", y = "Rate (%)") # create labels
+        labs(title = "2015 Cambodia and U.S. Data", x = NULL, y = "Rate (%)") # create labels
       
       bargraph1 # return plot
       
