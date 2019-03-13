@@ -1,4 +1,5 @@
-new_page_one <- tabPanel("Visual",
+final_ui <- fluidPage(
+
 titlePanel("2015 Rates for Cambodia and the United States"), # create title panel
 h5("What were the female labor force participation (of women 15 years and older), advanced education and fertility rates of women in Cambodia in 2015?
    How does it compare to the female labor force participation, secondary education and fertility rates of women in the United States in 2015?"),
@@ -19,24 +20,22 @@ sidebarLayout( # create sidebar Layout
   ), #end of sidebarpanel
   
   mainPanel( # show a plot of generated distribution
-    plotOutput(outputId = "bargraph"), # define graph output
-    tableOutput(outputId = "newtable"), #output table
-    textOutput(outputId = "bardescription") # output sentence
-  ) # end of mainPanel
+    tabsetPanel(
+      tabPanel("Visual",
+    plotOutput("bargraph"), # define graph output
+    tableOutput("newtable"), #output table
+    textOutput("bardescription") # output sentence
+  ), #end of tabPanel
+  tabPanel("Information",
+           h4("Why this question is relevant"),
+           textOutput("overalldescription"),
+           h4("How this data supports it"),
+           textOutput("descriptionpart2")
+  ) #end of tabPanel
+  ) # end of tabsetPanel
+  )# end of main Panel
   
 ) # end of sidebar layout
-  )# end of page one
 
-new_page_two <- tabPanel("Information",
-  h4("Why this question is relevant"),
-  textOutput(outputId = "overalldescription"),
-  h4("How this data supports it"),
-  textOutput(outputId = "descriptionpart2")
-)#end of page _two
 
-final_ui <-
-  navbarPage( # create navbarPage
-    "2015 Data", # title navbarpage
-    new_page_one, # include first page
-    new_page_two # include second page
-  ) # end of navbar
+)#end of fluidpage

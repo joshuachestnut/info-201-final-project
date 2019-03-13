@@ -7,8 +7,8 @@ library("tidyr") # load tidyr
 library("shiny") # load shiny
 
 #load csv files
-fertility_one <- read.csv("info-201-final-project/data/fertility_data_one.csv", stringsAsFactors = FALSE) #load csv
-fertility_two <- read.csv("info-201-final-project/data/fertility_data_two.csv", stringsAsFactors = FALSE) #load csv
+fertility_one <- read.csv("data/fertility_data_one.csv", stringsAsFactors = FALSE) #load csv
+fertility_two <- read.csv("data/fertility_data_two.csv", stringsAsFactors = FALSE) #load csv
 
 
 #Question 1: 
